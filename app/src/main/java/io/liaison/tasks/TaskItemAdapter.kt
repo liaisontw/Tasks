@@ -3,15 +3,18 @@ package io.liaison.tasks
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.CheckBox
+import android.widget.Toast
 //import android.widget.ListAdapter
 import androidx.recyclerview.widget.ListAdapter
 import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import io.liaison.tasks.databinding.TaskItemBinding
+//import io.liaison.tasks.generated.callback.OnClickListener
 
 //class TaskItemAdapter : RecyclerView.Adapter<TaskItemAdapter.TaskItemViewHolder>() {
-class TaskItemAdapter : ListAdapter<Task, TaskItemAdapter.TaskItemViewHolder>(TaskDiffItemCallback()) {
+class TaskItemAdapter(val clickListener: (taskId: Long) -> Unit)
+    : ListAdapter<Task, TaskItemAdapter.TaskItemViewHolder>(TaskDiffItemCallback()) {
 /*
     var data = listOf<Task>()
         set(value) {
@@ -26,7 +29,7 @@ class TaskItemAdapter : ListAdapter<Task, TaskItemAdapter.TaskItemViewHolder>(Ta
     override fun onBindViewHolder(holder: TaskItemViewHolder, position: Int) {
         //val item = data[position]
         val item = getItem(position)
-        holder.bind(item)
+        holder.bind(item, clickListener)
     }
 
     class TaskItemViewHolder(val binding: TaskItemBinding)
@@ -43,10 +46,11 @@ class TaskItemAdapter : ListAdapter<Task, TaskItemAdapter.TaskItemViewHolder>(Ta
             }
         }
 
-        fun bind(item: Task) {
+        fun bind(item: Task, clickListener: (taskId: Long) -> Unit) {
             //taskName.text = item.taskName
             //taskDone.isChecked = item.taskDone
             binding.task = item
+            binding.root.setOnClickListener { clickListener(item.taskId) }
         }
     }
 }
