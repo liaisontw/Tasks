@@ -24,8 +24,8 @@
             app:argType="long"
             />
         <action
-            android:id="@+id/action_editTasksFragment_to_taskFragment"
-            app:destination="@+id/taskFragment"
+            android:id="@+id/action_editTasksFragment_to_tasksFragment"
+            app:destination="@+id/tasksFragment"
             app:popUpTo="@id/tasksFragment"
             app:popUpToInclusive="true"/>
     </fragment>
